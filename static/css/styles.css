@@ -1,0 +1,19 @@
+.small-box {
+  background-position: top 10px right 10px;
+  background-size: 150px;
+  background-repeat: no-repeat;
+}
+
+.small-box.Trinity {
+  background-image: url("../img/house_logos/Trinity.png");
+}
+
+.small-box.Peterhouse {
+  background-image: url("../img/house_logos/Peterhouse.jpg");
+  background-size: 90px;
+}
+
+.small-box.Corpus {
+  background-image: url("../img/house_logos/ccc.png");
+  background-size: 100px;
+}
