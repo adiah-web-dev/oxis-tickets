@@ -1,0 +1,233 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block title %}Create Order{%endblock%}
+
+{% block pageHeader %}Create Order{% endblock %}
+
+{% block content%}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Add Order</h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<h4>Order details</h4>
+					<div class="form-group">
+						<label for="full_name">Full Name</label>
+						<input type="text" class="form-control form-control-border" id="full_name" placeholder="Enter full name">
+					</div>
+					<div class="form-group">
+						<label for="phone">Phone Number</label>
+						<input type="tel" class="form-control form-control-border" id="phone" placeholder="Enter phone number">
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" class="form-control form-control-border" id="email" placeholder="Enter email address">
+					</div>
+
+					<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-add-ticket">
+						<i class="fas fa-plus"></i> Add Ticket
+					</button>
+
+				</div>
+				<!-- /.card-body -->
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
+
+	<div class="row">
+		<div class="col-12">
+			<div class="callout callout-info">
+				<h5><i class="fas fa-info"></i> Note:</h5>
+				This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
+			</div>
+
+
+			<!-- Main content -->
+			<div class="invoice p-3 mb-3">
+				<!-- title row -->
+				<div class="row">
+					<div class="col-12">
+						<h4>
+							<i class="fas fa-globe"></i> The Oxbridge International School
+							<small class="float-right">Date: 2/10/2014</small>
+						</h4>
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- info row -->
+				<div class="row invoice-info">
+					<div class="col-sm-4 invoice-col">
+						From
+						<address>
+							<strong>The Oxbridge International School</strong><br>
+							134-136 Union Park West, San Fernando<br>
+							Trinidad W.I., 610830<br>
+							Phone: (868) 737-1310<br>
+							Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddb4b3bbb29dbcb1b0bcaebcb8b8b9aea9a8b9b4b2f3beb2b0">[email&#160;protected]</a>
+						</address>
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-4 invoice-col">
+						To
+						{% comment %} Add the data from the order here {% endcomment %}
+						<address>
+							<strong>John Doe</strong><br>
+							795 Folsom Ave, Suite 600<br>
+							San Francisco, CA 94107<br>
+							Phone: (555) 539-1037<br>
+							Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d0babfb8befeb4bfb590b5a8b1bda0bcb5feb3bfbd">[email&#160;protected]</a>
+						</address>
+					</div>
+					<!-- /.col -->
+					 {% comment %} Leave this blank until saved to database {% endcomment %}
+					<div class="col-sm-4 invoice-col">
+						<b>Invoice #007612</b><br>
+						<br>
+						<b>Order ID:</b> 4F3S8J<br>
+						<b>Payment Due:</b> 2/22/2014<br>
+						<b>Account:</b> 968-34567
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+
+				<!-- Table row -->
+				<div class="row">
+					<div class="col-12 table-responsive">
+						<table class="table table-striped">
+							<thead>
+								{% comment %}
+									* ticket number
+									* Name on ticket
+									* Ticket Type
+									* Cost/Price
+								{% endcomment %}
+
+								{% comment %}
+									* Graduand - $550
+									* Graduand EY - $250
+									* Non-Graduating - $100
+									* Parents - $125
+									* Dates - $250
+								{% endcomment %}
+
+							<tr>
+								<th>Ticket Type</th>
+								<th>Name on Ticket</th>
+								<th>Ticket #</th>
+								<th>Subtotal</th>
+							</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Graduand - Grade 9</td>
+									<td>Christopher Reeves</td>
+									<td>154875412566</td>
+									<td>$550.00</td>
+								</tr>
+								<tr>
+									<td>Graduand - Grade 9</td>
+									<td>Christopher Reeves</td>
+									<td>512468541235</td>
+									<td>$550.00</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<!-- accepted payments column -->
+					<div class="col-6"></div>
+					<!-- /.col -->
+					<div class="col-6">
+						<p class="lead">Amount Due 2/22/2014</p>
+
+						<div class="table-responsive">
+							<table class="table">
+								<tr>
+									<th>Total:</th>
+									<td>$265.24</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+
+				<!-- this row will not appear when printing -->
+				<div class="row no-print">
+					<div class="col-12">
+						<a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+						<button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+							<i class="fas fa-download"></i> Generate PDF
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.invoice -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+</div><!-- /.container-fluid -->
+{% endblock %}
+
+{% block modals %}
+<div class="modal fade" id="modal-add-ticket">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add a Ticket</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<label for="ticket-name">Name on Ticket</label>
+						<input type="text" name="ticket-name" id="ticket-name" class="form-control form-control-border" placeholder="Enter name on ticket...">
+					</div>
+
+			<div class="form-group">
+				<label for="exampleSelectBorder">Select Ticket Type</label>
+				<select class="custom-select form-control-border" id="exampleSelectBorder">
+					<option value="p">Parent</option>
+					<option value="g">Graduating (Grades 9, 11, 12, 13)</option>
+					<option value="ge">Graduating - Early Years</option>
+					<option value="ng">Non-Graduating</option>
+					<option value="d">Learner's Date</option>
+				</select>
+			</div>
+				</form>
+			</div>
+			<div class="modal-footer justify-content-between">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-success">Add to order</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{% endblock %}
+
+<!-- Page specific script -->
+ {% block scripts %}
+<script>
+$(function () {
+  bsCustomFileInput.init();
+});
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"93cfcf3c7ae574a4","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.4.0-1-g37f21b1","token":"2437d112162f4ec4b63c3ca0eb38fb20"}' crossorigin="anonymous"></script>
+{% endblock %}
