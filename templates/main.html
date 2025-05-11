@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
+
+  {% block plugins %}
+  {% endblock %}
 
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
@@ -73,6 +78,9 @@
       {% block content %}
 
       {% endblock %}
+
+      {% block modals %}
+      {% endblock %}
       <!-- /.card -->
 
     </section>
@@ -98,5 +106,7 @@
 <script src="{% static 'js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'js/demo.js' %}"></script>
+{% block scripts%}
+{% endblock %}
 </body>
 </html>
