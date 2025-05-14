@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # My apps
     'base.apps.BaseConfig',
     'theme.apps.ThemeConfig',
+    'tickets.apps.TicketsConfig',
 	'users.apps.UsersConfig',
 ]
 
