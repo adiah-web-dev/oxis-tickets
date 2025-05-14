@@ -12,6 +12,9 @@ class OrderListView(generic.ListView):
 	model = Order
 	paginate_by = 20
 
+class OrderDetailView(generic.DetailView):
+	model = Order
+
 def order_page(request):
 
 	# Saving an order has to be done by POST
