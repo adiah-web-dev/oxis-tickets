@@ -2,5 +2,15 @@
 {% load static %}
 
 {% block content %}
-Put the orders here
+	{% if order_list %}
+		<ul>
+			{% for order in order_list %}
+				<li>
+					{{order.name}}
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>There are no orders in the database.</p>
+	{% endif %}
 {% endblock %}

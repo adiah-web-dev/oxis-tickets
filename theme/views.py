@@ -19,5 +19,8 @@ def invoice(request):
 def dashboard1(request):
 	return render(request, 'theme/dashboard1.html')
 
+def tables(request):
+	return render(request, 'theme/tables.html')
+
 def order_template(request):
 	return render(request, 'theme/add_ticket.html')
