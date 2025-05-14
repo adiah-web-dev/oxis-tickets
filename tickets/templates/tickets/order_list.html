@@ -24,7 +24,7 @@
 										<th>Date</th>
 										<th>Email</th>
 										<th>Phone #</th>
-										<th>Subtotal</th>
+										{% comment %} <th>Subtotal</th> {% endcomment %}
 										<th>Paid</th>
 									</tr>
 								</thead>
@@ -36,7 +36,7 @@
 											<td>{{ order.date }}</td>
 											<td>{{ order.email }}</td>
 											<td>{{ order.phone }}</td>
-											<td>$</td>
+											{% comment %} <td>$</td> {% endcomment %}
 											<td><div class="paid"></div>{{ order.paid }}</td>
 										</tr>
 									{% endfor %}
