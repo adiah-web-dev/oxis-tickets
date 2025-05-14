@@ -2,15 +2,54 @@
 {% load static %}
 
 {% block content %}
-	{% if order_list %}
-		<ul>
-			{% for order in order_list %}
-				<li>
-					{{order.name}}
-				</li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<p>There are no orders in the database.</p>
-	{% endif %}
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Striped Full Width Table</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body p-0">
+							{% if order_list %}
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										{% comment %} <th style="width: 10px">#</th>
+										<th>Task</th>
+										<th>Progress</th>
+										<th style="width: 40px">Label</th> {% endcomment %}
+										<th>Name</th>
+										<th>Order #</th>
+										<th>Date</th>
+										<th>Email</th>
+										<th>Phone #</th>
+										<th>Subtotal</th>
+										<th>Paid</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for order in order_list %}
+										<tr>
+											<td>{{ order.name }}</td>
+											<td>{{ order.id }}</td>
+											<td>{{ order.date }}</td>
+											<td>{{ order.email }}</td>
+											<td>{{ order.phone }}</td>
+											<td>$</td>
+											<td><div class="paid"></div>{{ order.paid }}</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							{% else %}
+								<p>There are no orders in the database.</p>
+							{% endif %}
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
+			</div>
+		</div>
 {% endblock %}
