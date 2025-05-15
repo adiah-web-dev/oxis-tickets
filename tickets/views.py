@@ -1,11 +1,13 @@
-import json
-
-from django.http import JsonResponse
+import qrcode
+from django.conf import settings
+from django.core.files import File
 from django.shortcuts import redirect, render
-from django.urls import reverse
 from django.views import generic
+from PIL import Image
 
 from .models import Order, Ticket
+
+ROOT = settings.BASE_DIR
 
 
 class OrderListView(generic.ListView):
@@ -44,6 +46,27 @@ def order_page(request):
 				type=ticket_type
 			)
 			new_ticket.save()
+			print(new_ticket)
+
+			# Open the base image and copy it so it's not overwritten
+			img = Image.open(ROOT / 'static/img/grad-ticket.png')
+			img_bg = img.copy()
+
+			qr = qrcode.QRCode(
+				box_size=10,
+				version=1
+			)
+
+			qr.add_data(new_ticket.id)
+			qr.make()
+			img_qr = qr.make_image(fill_color="#440972", back_color="#ffffff")
+			img_qr.save(ROOT / 'media/temp/qrcode_inset.png')
+
+			qr_inset = Image.open(ROOT / 'media/temp/qrcode_inset.png')
+			img_bg.paste(qr_inset, (50, 200))
+			img_bg.save(ROOT / 'media/temp/ticket.png')
+
+			new_ticket.image.save(f'{new_ticket.name}--{new_ticket.id}.png', File(open(ROOT / 'media/temp/ticket.png', 'rb')))
 
 			order.ticket_set.add(new_ticket)
 
