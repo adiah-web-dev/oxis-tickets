@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;">
+    <div style="max-width: 600px; margin: auto; background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      <h2 style="color: #6b8e23; text-align: center;">🎓 Oxbridge International School</h2>
+      <h3 style="text-align: center; margin-top: 0;">Graduation 2025 – <em>Enchanted Garden</em></h3>
+
+      <p>Dear <strong>{{customer_name}}</strong>,</p>
+
+      <p>Thank you for your purchase! Here are your graduation ticket details:</p>
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+          <tr style="background-color: #eaf4ea;">
+            <th style="text-align: left; padding: 10px; border-bottom: 1px solid #ccc;">Name on Ticket</th>
+            <th style="text-align: center; padding: 10px; border-bottom: 1px solid #ccc;">Ticket Type</th>
+            <th style="text-align: right; padding: 10px; border-bottom: 1px solid #ccc;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;">{{ ticket.name }}</td>
+            <td style="text-align: center; padding: 10px; border-bottom: 1px solid #eee;">{{ ticket.get_type_display }}</td>
+            <td style="text-align: right; padding: 10px; border-bottom: 1px solid #eee;">${{ ticket.price }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" style="padding: 10px; text-align: right; font-weight: bold;">Total:</td>
+            <td style="padding: 10px; text-align: right; font-weight: bold;">${{ total }}</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <p>Attached below are your digital tickets for each entry. Please present these at the entrance on graduation day.</p>
+
+      <p style="margin-top: 20px;">We look forward to celebrating this magical moment with you at the <strong>Enchanted Garden Graduation Ceremony</strong>.</p>
+
+      <p>With best wishes,</p>
+
+      <p><strong>Oxbridge International School<br/>Graduation Committee</strong></p>
+    </div>
+  </body>
+</html>

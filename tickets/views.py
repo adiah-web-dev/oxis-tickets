@@ -1,7 +1,11 @@
 import qrcode
 from django.conf import settings
 from django.core.files import File
+from django.core.files.storage import default_storage
+from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.views import generic
 from PIL import Image
 
@@ -36,6 +40,8 @@ def order_page(request):
 		)
 		order.save()
 
+		total = 0
+
 		# loop over the tickets
 		for i in range(ticket_count):
 			ticket_name = request.POST[f'ticketName{i}']
@@ -46,7 +52,7 @@ def order_page(request):
 				type=ticket_type
 			)
 			new_ticket.save()
-			print(new_ticket)
+			total += new_ticket.price
 
 			# Open the base image and copy it so it's not overwritten
 			img = Image.open(ROOT / 'static/img/grad-ticket.png')
@@ -72,6 +78,32 @@ def order_page(request):
 
 		# url = reverse('orders')
 		# return JsonResponse({"url": url}, status=201)
+
+		# Email sending
+		subject = "🎓 Your Graduation Tickets – Oxbridge International School | Enchanted Garden"
+		html_content = render_to_string('tickets/email_template.html', {
+			"customer_name": order.name,
+			"tickets": order.ticket_set.all(),
+			"total": total,
+		})
+		text_content = strip_tags(html_content)
+
+		msg = EmailMultiAlternatives(
+			subject,
+			text_content,
+			settings.EMAIL_HOST_USER,
+			[order.email],
+			bcc=['adiahnat@gmail.com']
+		)
+		msg.attach_alternative(html_content, "text/html")
+
+		for ticket in order.ticket_set.all():
+			image_file = ticket.image.read()
+			image_name = ticket.image.name
+			msg.attach(image_name, image_file, 'image/png')
+
+		msg.send()
+
 		return redirect('orders')
 
 	return render(request, 'tickets/new_order.html')
