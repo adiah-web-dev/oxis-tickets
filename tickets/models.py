@@ -25,10 +25,10 @@ class Order(models.Model):
 class Ticket(models.Model):
 	TYPES = (
 		("p", "Parent"),
-		("g", "Graduating"),
-		("ge", "Graduating Early Years"),
-		("ng", "Non-graduating"),
-		("d", "Learner's Date"),
+		("g", "Graduate"),
+		("ge", "Early Years Graduate"),
+		("ng", "Student"),
+		("d", "Plus One"),
 	)
 
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4)
