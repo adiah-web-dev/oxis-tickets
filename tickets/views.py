@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.views import generic
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 from .models import Order, Ticket
 
@@ -54,30 +54,12 @@ def order_page(request):
 			new_ticket.save()
 			total += new_ticket.price
 
-			# Open the base image and copy it so it's not overwritten
-			img = Image.open(ROOT / 'static/img/grad-ticket.png')
-			img_bg = img.copy()
+			create_image(ticket_name, ticket_type, new_ticket.id)
 
-			qr = qrcode.QRCode(
-				box_size=10,
-				version=1
-			)
-
-			qr.add_data(new_ticket.id)
-			qr.make()
-			img_qr = qr.make_image(fill_color="#440972", back_color="#ffffff")
-			img_qr.save(ROOT / 'media/temp/qrcode_inset.png')
-
-			qr_inset = Image.open(ROOT / 'media/temp/qrcode_inset.png')
-			img_bg.paste(qr_inset, (50, 200))
-			img_bg.save(ROOT / 'media/temp/ticket.png')
-
-			new_ticket.image.save(f'{new_ticket.name}--{new_ticket.id}.png', File(open(ROOT / 'media/temp/ticket.png', 'rb')))
+			# Save the created image to database
+			new_ticket.image.save(f'{new_ticket.name}--{new_ticket.id}.png', File(open(ROOT / 'media/temp/ticket_text.png', 'rb')))
 
 			order.ticket_set.add(new_ticket)
-
-		# url = reverse('orders')
-		# return JsonResponse({"url": url}, status=201)
 
 		# Email sending
 		subject = "🎓 Your Graduation Tickets – Oxbridge International School | Enchanted Garden"
@@ -107,3 +89,55 @@ def order_page(request):
 		return redirect('orders')
 
 	return render(request, 'tickets/new_order.html')
+
+def create_image(name, type, id):
+	template = ''
+
+	match type:
+		case "p":
+			template = "Parent"
+		case "g":
+			template = "Graduate"
+		case "ge":
+			template = "Early"
+		case "ng":
+			template = "Student"
+		case "d":
+			template = "Plus"
+
+	img = Image.open(ROOT / f'static/img/grad_tickets/{template}.png')
+	img_bg = img.copy()
+
+	qr = qrcode.QRCode(
+		box_size=4,
+		version=1
+	)
+
+	qr.add_data(id)
+	qr.make()
+
+	img_qr = qr.make_image(fill_color='black', back_color='white')
+	img_qr.save(ROOT / 'media/temp/qrcode_inset.png')
+
+	qr_inset = Image.open(ROOT / 'media/temp/qrcode_inset.png')
+
+	x = img_bg.width - (qr_inset.width + 44)
+	y = img_bg.height - (qr_inset.height + 230)
+
+	img_bg.paste(qr_inset, (x, y))
+	img_bg.save(ROOT / 'media/temp/ticket.png')
+
+	# Add text
+	image = Image.open(ROOT / 'media/temp/ticket.png')
+	draw = ImageDraw.Draw(image)
+
+	font = ImageFont.truetype(ROOT / 'static/fonts/RobotoSlab.ttf', 44)
+	text_color = 'white'
+	name_length = draw.textlength(name, font)
+
+	x = (image.width - name_length) / 2
+	y = image.height / 2 + 160
+	name_position = (x, y)
+
+	draw.text(name_position, name, fill=text_color, font=font)
+	image.save(ROOT / 'media/temp/ticket_text.png')
