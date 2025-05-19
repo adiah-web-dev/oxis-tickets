@@ -13,6 +13,14 @@ from .models import Order, Ticket
 
 ROOT = settings.BASE_DIR
 
+def dashboard(request):
+	orders = Order.objects.all()[:10]
+
+	context = {
+		'orders': orders,
+	}
+
+	return render(request, 'tickets/dashboard.html', context)
 
 class OrderListView(generic.ListView):
 	model = Order

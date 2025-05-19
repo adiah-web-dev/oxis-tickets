@@ -1,0 +1,231 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block plugins %}
+{% endblock %}
+
+{% block pageHeader %}Graduation{% endblock %}
+
+{% block breadcrumbs %}
+	<li class="breadcrumb-item"><a href="#">Events</a></li>
+	<li class="breadcrumb-item active">Graduation</li>
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+		<!-- Info boxes -->
+		<div class="row">
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box">
+					<span class="info-box-icon bg-info elevation-1"><i class="fas fa-chart-line"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Total Sold</span>
+						<span class="info-box-number">
+							10
+						</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3">
+					<span class="info-box-icon bg-danger elevation-1"><i class="fas fa-envelope"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Emails Sent</span>
+						<span class="info-box-number">41</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+
+			<!-- fix for small devices only -->
+			<div class="clearfix hidden-md-up"></div>
+
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3">
+					<span class="info-box-icon bg-success elevation-1"><i class="fas fa-mobile"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Checked In</span>
+						<span class="info-box-number">760</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3">
+					<span class="info-box-icon bg-warning elevation-1"><i class="fas fa-dollar-sign"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Income</span>
+						<span class="info-box-number">2,000</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+
+		<!-- Main row -->
+		<div class="row">
+			<!-- Left col -->
+			<div class="col-md-6">
+				<!-- TABLE: LATEST ORDERS -->
+				<div class="card">
+					<div class="card-header border-transparent">
+						<h3 class="card-title">Latest Orders</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body p-0">
+						<div class="table-responsive">
+							<table class="table m-0">
+								<thead>
+								<tr>
+									<th>Order ID</th>
+									<th>Date</th>
+									<th>Name</th>
+									<th>Tickets</th>
+								</tr>
+								</thead>
+								<tbody>
+									{% for order in orders %}
+									<tr>
+										<td>{{ order.id|truncatechars:10 }}</td>
+										<td>{{ order.date }}</td>
+										<td>{{ order.name }}</td>
+										<td>{{ order.ticket_set.all|length }}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.card-body -->
+					<div class="card-footer clearfix">
+						<a href="{% url 'order' %}" class="btn btn-sm btn-info float-left">Place New Order</a>
+						<a href="{% url 'orders' %}" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+					</div>
+					<!-- /.card-footer -->
+				</div>
+				<!-- /.card -->
+			</div>
+			<!-- /.col -->
+
+			<div class="col-md-6">
+				<!-- LINE CHART -->
+				<div class="card card-info">
+					<div class="card-header">
+						<h3 class="card-title">Line Chart</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="chart">
+							<canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
+				<!-- Calendar -->
+				<div class="card bg-gradient-success">
+					<div class="card-header border-0">
+
+						<h3 class="card-title">
+							<i class="far fa-calendar-alt"></i>
+							Calendar
+						</h3>
+						<!-- tools card -->
+						<div class="card-tools">
+							<!-- button with a dropdown -->
+							<div class="btn-group">
+								<button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+									<i class="fas fa-bars"></i>
+								</button>
+								<div class="dropdown-menu" role="menu">
+									<a href="#" class="dropdown-item">Add new event</a>
+									<a href="#" class="dropdown-item">Clear events</a>
+									<div class="dropdown-divider"></div>
+									<a href="#" class="dropdown-item">View calendar</a>
+								</div>
+							</div>
+							<button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+						<!-- /. tools -->
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body pt-0">
+						<!--The calendar -->
+						<div id="calendar" style="width: 100%"></div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div><!--/. container-fluid -->
+{% endblock %}
+
+{% block scripts %}
+	<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+
+	<script>
+		const ctx = document.getElementById('lineChart')
+
+		new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+				datasets: [{
+					label: '# of Votes',
+					data: [12, 19, 3, 5, 2, 3],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		})
+	</script>
+{% endblock %}
