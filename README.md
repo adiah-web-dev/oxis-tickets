@@ -87,7 +87,11 @@ For each ticket being ordered, Enter the name and type of ticket being ordered a
 
 ![Add ticket dialog](./readmeAssets/addTicket.png)
 
-Scroll to the bottom of the page and click the `Add Order` button. Once, the orders page loads, the process is complete and the email has been sent.
+Scroll to the bottom of the page and click the `Add Order` button.
+
+![Complete orders](./readmeAssets/completeOrder.png)
+
+Once, the orders page loads, the process is complete and the email has been sent.
 
 ![orders page](./readmeAssets/orders.png)
 
