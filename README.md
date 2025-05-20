@@ -64,9 +64,32 @@ And run the server
 python manage.py runserver
 ```
 
+Add email credentials
+
 [(Back to top)](#table-of-contents)
 
 # Usage
+
+On the home page click on the `place new order` button.
+![homepage of the ticket app](./readmeAssets/dashboard.png)
+
+Enter the order details.
+- the full name
+- phone number
+- email address
+of the person placing the order.
+
+Then click on the `Add Ticket` button.
+
+![Add Order form](./readmeAssets/addOrder.png)
+
+For each ticket being ordered, Enter the name and type of ticket being ordered and then click `Add to order`.
+
+![Add ticket dialog](./readmeAssets/addTicket.png)
+
+Scroll to the bottom of the page and click the `Add Order` button. Once, the orders page loads, the process is complete and the email has been sent.
+
+![orders page](./readmeAssets/orders.png)
 
 [(Back to top)](#table-of-contents)
 
