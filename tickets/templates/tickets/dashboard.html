@@ -24,7 +24,7 @@
 					<div class="info-box-content">
 						<span class="info-box-text">Total Sold</span>
 						<span class="info-box-number">
-							10
+							{{ ticketCount }}
 						</span>
 					</div>
 					<!-- /.info-box-content -->
@@ -38,7 +38,7 @@
 
 					<div class="info-box-content">
 						<span class="info-box-text">Emails Sent</span>
-						<span class="info-box-number">41</span>
+						<span class="info-box-number">0</span>
 					</div>
 					<!-- /.info-box-content -->
 				</div>
@@ -55,7 +55,8 @@
 
 					<div class="info-box-content">
 						<span class="info-box-text">Checked In</span>
-						<span class="info-box-number">760</span>
+						{% comment %} Add an emails sent {% endcomment %}
+						<span class="info-box-number">0</span>
 					</div>
 					<!-- /.info-box-content -->
 				</div>
@@ -68,7 +69,7 @@
 
 					<div class="info-box-content">
 						<span class="info-box-text">Income</span>
-						<span class="info-box-number">2,000</span>
+						<span class="info-box-number">{{ income }}</span>
 					</div>
 					<!-- /.info-box-content -->
 				</div>
@@ -137,7 +138,7 @@
 				<!-- LINE CHART -->
 				<div class="card card-info">
 					<div class="card-header">
-						<h3 class="card-title">Line Chart</h3>
+						<h3 class="card-title">Ticket Sales</h3>
 
 						<div class="card-tools">
 							<button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -148,11 +149,11 @@
 							</button>
 						</div>
 					</div>
-					<div class="card-body">
+					{% comment %} <div class="card-body">
 						<div class="chart">
 							<canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
 						</div>
-					</div>
+					</div> {% endcomment %}
 					<!-- /.card-body -->
 				</div>
 				<!-- /.card -->

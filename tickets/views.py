@@ -15,9 +15,19 @@ ROOT = settings.BASE_DIR
 
 def dashboard(request):
 	orders = Order.objects.all()[:10]
+	tickets = Ticket.objects.all()
+
+	total = 0
+	for ticket in tickets:
+		total += ticket.price
+
+
+	ticketCount = tickets.count()
 
 	context = {
 		'orders': orders,
+		'ticketCount': ticketCount,
+		'income': total,
 	}
 
 	return render(request, 'tickets/dashboard.html', context)
