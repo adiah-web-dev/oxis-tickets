@@ -87,6 +87,10 @@ const addTicket = () => {
 		const newTicket = {name, type, price};
 		tickets.push(newTicket);
 
+		const total = tickets.reduce((total, ticket) => total + ticket.price, 0)
+		const totalCell = document.getElementById('order-total')
+		totalCell.textContent = `$${total}.00`
+
 		// Add hidden inputs for each of the tickets
 		const ticketName = document.createElement('input');
 		ticketName.type = 'hidden';
