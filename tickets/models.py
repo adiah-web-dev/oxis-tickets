@@ -2,6 +2,7 @@ import uuid
 from datetime import date
 
 from django.db import models
+from django.urls import reverse
 
 
 class Order(models.Model):
@@ -15,10 +16,19 @@ class Order(models.Model):
 	def __str__(self):
 		return f"{self.date} - {self.name}"
 
+	def get_absolute_url(self):
+		""""Returns the URL to access a particular author instance."""
+		return reverse('order-detail', args=[str(self.id)])
+
 	# Create some method here to get the total of an order based on the number of tickets
-	# @property
-	# def total(self):
-		# """Calculates the combined price of tickets in one order"""
+	@property
+	def total(self):
+		"""Calculates the combined price of tickets in one order"""
+		sum = 0
+		for ticket in self.ticket_set.all():
+			sum += ticket.price
+
+		return sum
 		# return self.aggregate(models.Sum('price'))['price__sum'] or 0
 		# return self.objects.aggregate(models.Sum('ticket__price'))
 
