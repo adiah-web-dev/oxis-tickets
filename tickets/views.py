@@ -80,7 +80,7 @@ def order_page(request):
 
 			order.ticket_set.add(new_ticket)
 
-		send_email(order, total)
+		#send_email(order, total)
 
 		return redirect('orders')
 
