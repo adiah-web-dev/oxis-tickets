@@ -31,7 +31,9 @@
 								<tbody>
 									{% for order in order_list %}
 										<tr>
-											<td>{{ order.name }}</td>
+											<td>
+												<a href="{{ order.get_absolute_url }}">{{ order.name }}</a>
+											</td>
 											<td>{{ order.id }}</td>
 											<td>{{ order.date }}</td>
 											<td>{{ order.email }}</td>

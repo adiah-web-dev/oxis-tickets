@@ -30,7 +30,7 @@
 							134-136 Union Park West, San6 Fernando<br>
 							Trinidad W.I., 610830<br>
 							Phone: (868) 737-1310<br>
-							Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddb4b3bbb29dbcb1b0bcaebcb8b8b9aea9a8b9b4b2f3beb2b0">[email&#160;protected]</a>
+							Email: VIPConcierge@oxis.edu.tt
 						</address>
 					</div>
 					<!-- /.col -->
@@ -64,9 +64,12 @@
 							</tr>
 							</thead>
 							<tbody>
-								{% for ticket in order__tickets %}
+								{% for ticket in order.ticket_set.all %}
 									<tr>
+										<td>{{ ticket.get_type_display}}</td>
 										<td>{{ticket.name }}</td>
+										<td>{{ ticket.id }}</td>
+										<td>${{ ticket.price }}.00</td>
 									</tr>
 								{% endfor %}
 							</tbody>
@@ -78,40 +81,15 @@
 
 				<div class="row">
 					<!-- accepted payments column -->
-					<div class="col-6">
-						<p class="lead">Payment Methods:</p>
-						<img src="../../dist/img/credit/visa.png" alt="Visa">
-						<img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-						<img src="../../dist/img/credit/american-express.png" alt="American Express">
-						<img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-
-						<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-							Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-							plugg
-							dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-						</p>
-					</div>
+					<div class="col-6"></div>
 					<!-- /.col -->
 					<div class="col-6">
-						<p class="lead">Amount Due 2/22/2014</p>
+						<p class="lead">Amount Due</p>
 
 						<div class="table-responsive">
 							<table class="table">
-								<tr>
-									<th style="width:50%">Subtotal:</th>
-									<td>$250.30</td>
-								</tr>
-								<tr>
-									<th>Tax (9.3%)</th>
-									<td>$10.34</td>
-								</tr>
-								<tr>
-									<th>Shipping:</th>
-									<td>$5.80</td>
-								</tr>
-								<tr>
 									<th>Total:</th>
-									<td>$265.24</td>
+									<td>${{ order.total }}.00</td>
 								</tr>
 							</table>
 						</div>
@@ -124,11 +102,8 @@
 				<div class="row no-print">
 					<div class="col-12">
 						<a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-						<button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-							Payment
-						</button>
 						<button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-							<i class="fas fa-download"></i> Generate PDF
+							<i class="far fa-envelope"></i> Send Email
 						</button>
 					</div>
 				</div>
