@@ -4,9 +4,15 @@
 
 A webapp that allows unique tickets to be generated and emailed to customers.
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/navendu-pottekkat/awesome-readme?include_prereleases)
+<!-- ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/navendu-pottekkat/awesome-readme?include_prereleases)
 ![GitHub last commit](https://img.shields.io/github/last-commit/navendu-pottekkat/awesome-readme)
-![GitHub](https://img.shields.io/github/license/navendu-pottekkat/awesome-readme)
+![GitHub](https://img.shields.io/github/license/navendu-pottekkat/awesome-readme) -->
+
+
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/adiah-web-dev/oxis-tickets?include_prereleases)
+<!-- ![GitHub last commit](https://img.shields.io/github/last-commit/navendu-pottekkat/awesome-readme) -->
+![GitHub last commit](https://img.shields.io/github/last-commit/adiah-web-dev/oxis-tickets)
+![GitHub](https://img.shields.io/github/license/adiah-web-dev/oxis-tickets)
 
 # Table of contents
 
@@ -79,6 +85,21 @@ python manage.py runserver
 [(Back to top)](#table-of-contents)
 
 # Usage
+
+Launch Windows Terminal - It will open in the correct directory.
+
+Activate the virtual environment with:
+`.venv/scripts/activate`
+
+![Activate virtual environment](./readmeAssets/venv.png)
+
+Then start the server with :
+`python manage.py runserver`
+
+![Start the server](./readmeAssets/runserver.png)
+
+Next, in the browser go to http://127.0.0.1:8000/ (You can click the link from the terminal by pressing `ctrl` and clicking.)
+This will take you to the dashboard/homepage.
 
 On the home page click on the `place new order` button.
 ![homepage of the ticket app](./readmeAssets/dashboard.png)
