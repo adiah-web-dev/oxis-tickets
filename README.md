@@ -35,15 +35,25 @@ cd oxis-tickets
 Create a virtual environment and activate. (I use venv, so this could be accomplished with):
 
 ```
-python -m venv .env
+python -m venv .venv
 
-.env/scripts/activate
+.venv/scripts/activate
 ```
 
 Install the dependencies:
 
 ```
 pip install -r requirements.txt
+```
+
+Add email credentials
+
+Create a file named `.env`
+And enter the email credentials as follows
+
+```bash
+EMAIL_ACCOUNT = 'user@gmail.com'
+EMAIL_PASSWORD = 'paslkndzdvbiwjfrx'
 ```
 
 Create a superuser
@@ -64,7 +74,7 @@ And run the server
 python manage.py runserver
 ```
 
-Add email credentials
+
 
 [(Back to top)](#table-of-contents)
 

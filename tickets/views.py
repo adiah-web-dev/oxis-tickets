@@ -29,6 +29,7 @@ def dashboard(request):
 		'ticketCount': ticketCount,
 		'income': total,
 	}
+	print(settings.EMAIL_HOST_USER)
 
 	return render(request, 'tickets/dashboard.html', context)
 
