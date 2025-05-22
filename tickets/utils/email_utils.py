@@ -33,8 +33,9 @@ def send_email(order):
 			subject,
 			text_content,
 			settings.EMAIL_HOST_USER,
-			[order.email_address],
-			bcc=['adiahnat@gmail.com']
+			# [order.email_address],
+			# bcc=['adiahnat@gmail.com']
+			['VIPConcierge@oxis.edu.tt'],
 		)
 		msg.attach_alternative(html_content, "text/html")
 
