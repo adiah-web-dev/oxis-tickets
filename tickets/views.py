@@ -81,7 +81,7 @@ def order_page(request):
 
 			order.ticket_set.add(new_ticket)
 
-		# send_email(order)
+		send_email(order)
 
 		return redirect('orders')
 
