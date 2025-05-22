@@ -51,7 +51,7 @@ def send_email(order):
 
 	except Exception as e:
 		error_msg = str(e)
-		logger.error(f"Failed to send email to {email.order__email_address}: {error_msg}")
+		logger.error(f"Failed to send email to : {error_msg}")
 		email.status = 'failed'
 		email.error_message = error_msg
 
