@@ -56,7 +56,7 @@ class Ticket(models.Model):
 		cost = 0
 		match self.type:
 			case "p":
-				cost = 150
+				cost = 125
 			case "g":
 				cost = 550
 			case "ge":
