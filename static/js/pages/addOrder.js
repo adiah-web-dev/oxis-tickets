@@ -51,7 +51,7 @@ const addTicket = () => {
 				break;
 
 			case 'ng':
-				text = 'Non Graduating Student';
+				text = 'Non Graduating Learner';
 				price = 100;
 				break;
 

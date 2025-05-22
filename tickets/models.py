@@ -37,7 +37,7 @@ class Ticket(models.Model):
 		("p", "Parent"),
 		("g", "Graduate"),
 		("ge", "Early Years Graduate"),
-		("ng", "Student"),
+		("ng", "Learner"),
 		("d", "Plus One"),
 	)
 
