@@ -9,7 +9,7 @@ from django.utils.html import strip_tags
 from django.views import generic
 from PIL import Image, ImageDraw, ImageFont
 
-from .models import Order, Ticket
+from .models import Email, Order, Ticket
 from .utils.email_utils import send_email
 
 ROOT = settings.BASE_DIR
@@ -17,6 +17,7 @@ ROOT = settings.BASE_DIR
 def dashboard(request):
 	orders = Order.objects.all()[:10]
 	tickets = Ticket.objects.all()
+	email_count = Email.objects.filter(status='sent').count()
 
 	total = 0
 	for ticket in tickets:
@@ -29,6 +30,7 @@ def dashboard(request):
 		'orders': orders,
 		'ticketCount': ticketCount,
 		'income': total,
+		'emailCount': email_count,
 	}
 	print(settings.EMAIL_HOST_USER)
 
