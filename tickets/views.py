@@ -10,6 +10,7 @@ from django.views import generic
 from PIL import Image, ImageDraw, ImageFont
 
 from .models import Order, Ticket
+from .utils.email_utils import send_email
 
 ROOT = settings.BASE_DIR
 
@@ -54,7 +55,7 @@ def order_page(request):
 		# Attempt to create a new Order and then add the tickets to it
 		order = Order(
 			name=name,
-			email=email,
+			email_address=email,
 			phone=phone,
 		)
 		order.save()
@@ -80,11 +81,13 @@ def order_page(request):
 
 			order.ticket_set.add(new_ticket)
 
-		#send_email(order, total)
+		# send_email(order)
 
 		return redirect('orders')
 
 	return render(request, 'tickets/new_order.html')
+
+
 
 def create_image(name, type, id):
 	template = ''
@@ -137,30 +140,3 @@ def create_image(name, type, id):
 
 	draw.text(name_position, name, fill=text_color, font=font)
 	image.save(ROOT / 'media/temp/ticket_text.png')
-
-
-def send_email(order, total):
-# Email sending
-	subject = "🎓 Your Graduation Tickets – Oxbridge International School | Enchanted Garden"
-	html_content = render_to_string('tickets/email_template.html', {
-		"customer_name": order.name,
-		"tickets": order.ticket_set.all(),
-		"total": total,
-	})
-	text_content = strip_tags(html_content)
-
-	msg = EmailMultiAlternatives(
-		subject,
-		text_content,
-		settings.EMAIL_HOST_USER,
-		[order.email],
-		bcc=['adiahnat@gmail.com']
-	)
-	msg.attach_alternative(html_content, "text/html")
-
-	for ticket in order.ticket_set.all():
-		image_file = ticket.image.read()
-		image_name = ticket.image.name
-		msg.attach(image_name, image_file, 'image/png')
-
-	msg.send()
