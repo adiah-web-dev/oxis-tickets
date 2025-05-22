@@ -37,7 +37,7 @@ const addTicket = () => {
 		switch (type) {
 			case 'p':
 				text = 'Parent';
-				price = 150;
+				price = 125;
 				break;
 
 			case 'g':
