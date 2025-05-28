@@ -39,6 +39,7 @@ class Ticket(models.Model):
 		("ge", "Early Years Graduate"),
 		("ng", "Learner"),
 		("d", "Plus One"),
+		("pk", "Plus One (Child)")
 	)
 
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -65,6 +66,8 @@ class Ticket(models.Model):
 				cost = 100
 			case "d":
 				cost = 250
+			case "pk":
+				cost = 100
 
 		return cost
 

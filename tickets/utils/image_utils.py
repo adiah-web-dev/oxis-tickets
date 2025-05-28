@@ -19,6 +19,8 @@ def create_image(name, type, id):
 			template = "Student"
 		case "d":
 			template = "Plus"
+		case "pk":
+			template = "PlusKids"
 
 	img = Image.open(ROOT / f'static/img/grad_tickets/{template}.png')
 	img_bg = img.copy()
