@@ -1,16 +1,11 @@
-import qrcode
 from django.conf import settings
 from django.core.files import File
-from django.core.files.storage import default_storage
-from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.shortcuts import redirect, render
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 from django.views import generic
-from PIL import Image, ImageDraw, ImageFont
 
 from .models import Email, Order, Ticket
 from .utils.email_utils import send_email
+from .utils.image_utils import create_image
 
 ROOT = settings.BASE_DIR
 
@@ -35,6 +30,8 @@ def dashboard(request):
 	print(settings.EMAIL_HOST_USER)
 
 	return render(request, 'tickets/dashboard.html', context)
+
+# Orders
 
 class OrderListView(generic.ListView):
 	model = Order
@@ -88,57 +85,3 @@ def order_page(request):
 		return redirect('orders')
 
 	return render(request, 'tickets/new_order.html')
-
-
-
-def create_image(name, type, id):
-	template = ''
-
-	match type:
-		case "p":
-			template = "Parent"
-		case "g":
-			template = "Graduate"
-		case "ge":
-			template = "Early"
-		case "ng":
-			template = "Student"
-		case "d":
-			template = "Plus"
-
-	img = Image.open(ROOT / f'static/img/grad_tickets/{template}.png')
-	img_bg = img.copy()
-
-	qr = qrcode.QRCode(
-		box_size=4,
-		version=1
-	)
-
-	qr.add_data(id)
-	qr.make()
-
-	img_qr = qr.make_image(fill_color='black', back_color='white')
-	img_qr.save(ROOT / 'media/temp/qrcode_inset.png')
-
-	qr_inset = Image.open(ROOT / 'media/temp/qrcode_inset.png')
-
-	x = img_bg.width - (qr_inset.width + 44)
-	y = img_bg.height - (qr_inset.height + 230)
-
-	img_bg.paste(qr_inset, (x, y))
-	img_bg.save(ROOT / 'media/temp/ticket.png')
-
-	# Add text
-	image = Image.open(ROOT / 'media/temp/ticket.png')
-	draw = ImageDraw.Draw(image)
-
-	font = ImageFont.truetype(ROOT / 'static/fonts/RobotoSlab.ttf', 44)
-	text_color = 'white'
-	name_length = draw.textlength(name, font)
-
-	x = (image.width - name_length) / 2
-	y = image.height / 2 + 160
-	name_position = (x, y)
-
-	draw.text(name_position, name, fill=text_color, font=font)
-	image.save(ROOT / 'media/temp/ticket_text.png')
