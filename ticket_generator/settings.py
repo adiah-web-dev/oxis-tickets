@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-50qt*sn$)&+)xlux54vyf_wxysfdm*y*h@kmr%m1t07liq_!=$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,12 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_extensions',
+
     'rest_framework',
 	'corsheaders',
 
     # My apps
     'api.apps.ApiConfig',
     'base.apps.BaseConfig',
+    'scanner.apps.ScannerConfig',
     'theme.apps.ThemeConfig',
     'tickets.apps.TicketsConfig',
 	'users.apps.UsersConfig',
