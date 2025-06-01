@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
 	path('', views.scanner, name='scanner'),
-	path('tickets/<uuid:pk>/', views.scanned_ticket, name='scanned-ticket'),
+	# path('tickets/<uuid:pk>/', views.scanned_ticket, name='scanned-ticket'),
+	path('tickets/<uuid:pk>/', views.TicketDetailView.as_view(), name='scanned-ticket'),
 ]
