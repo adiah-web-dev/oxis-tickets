@@ -8,9 +8,10 @@ A webapp that allows unique tickets to be generated and emailed to customers.
 ![GitHub last commit](https://img.shields.io/github/last-commit/navendu-pottekkat/awesome-readme)
 ![GitHub](https://img.shields.io/github/license/navendu-pottekkat/awesome-readme) -->
 
-
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/adiah-web-dev/oxis-tickets?include_prereleases)
+
 <!-- ![GitHub last commit](https://img.shields.io/github/last-commit/navendu-pottekkat/awesome-readme) -->
+
 ![GitHub last commit](https://img.shields.io/github/last-commit/adiah-web-dev/oxis-tickets)
 ![GitHub](https://img.shields.io/github/license/adiah-web-dev/oxis-tickets)
 
@@ -80,8 +81,6 @@ And run the server
 python manage.py runserver
 ```
 
-
-
 [(Back to top)](#table-of-contents)
 
 # Usage
@@ -101,14 +100,27 @@ Then start the server with :
 Next, in the browser go to http://127.0.0.1:8000/ (You can click the link from the terminal by pressing `ctrl` and clicking.)
 This will take you to the dashboard/homepage.
 
+The server needs to be started via https in order for the scanner to communicate.
+
+`pip install django-extensions Werkzeug`
+
+First create a self-signed certificate:
+
+`mkcert -cert-file cert.pem -key-file key.pem localhost 127.0.0.1 0.0.0.0`
+This only needs to be run the first time.
+
+Now the server should be started via:
+`python manage.py runserver_plus 0.0.0.0:8000 --cert-file cert.pem --key-file key.pem`
+
 On the home page click on the `place new order` button.
 ![homepage of the ticket app](./readmeAssets/dashboard.png)
 
 Enter the order details.
+
 - the full name
 - phone number
 - email address
-of the person placing the order.
+  of the person placing the order.
 
 Then click on the `Add Ticket` button.
 
@@ -139,7 +151,6 @@ Once, the orders page loads, the process is complete and the email has been sent
 - [x] Once an order is completed successfully, an email is sent with all the tickets
 
 - [ ] Allow user to scan tickets
-
 
 [(Back to top)](#table-of-contents)
 
