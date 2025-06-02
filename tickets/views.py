@@ -13,6 +13,7 @@ def dashboard(request):
 	orders = Order.objects.all()[:10]
 	tickets = Ticket.objects.all()
 	email_count = Email.objects.filter(status='sent').count()
+	checked_in = Ticket.objects.filter(checked_in=True).count()
 
 	total = 0
 	for ticket in tickets:
@@ -26,6 +27,7 @@ def dashboard(request):
 		'ticketCount': ticketCount,
 		'income': total,
 		'emailCount': email_count,
+		'checkedInCount': checked_in,
 	}
 	print(settings.EMAIL_HOST_USER)
 
