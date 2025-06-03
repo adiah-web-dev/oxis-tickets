@@ -13,6 +13,9 @@ class Order(models.Model):
 	phone = models.CharField(max_length=20)
 	paid = models.BooleanField(default=False)
 
+	class Meta:
+		ordering = ['name']
+
 	def __str__(self):
 		return f"{self.date} - {self.name}"
 

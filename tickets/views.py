@@ -35,7 +35,7 @@ def dashboard(request):
 
 class OrderListView(generic.ListView):
 	model = Order
-	paginate_by = 20
+	# paginate_by = 20
 
 class OrderDetailView(generic.DetailView):
 	model = Order
