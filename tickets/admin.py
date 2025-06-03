@@ -6,6 +6,7 @@ from .models import Email, Order, Ticket
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
 	list_display = ('name', 'id', 'date', 'email_address', 'phone', 'total', 'paid', 'ticket_count')
+	ordering = ['name']
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
