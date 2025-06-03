@@ -32,6 +32,11 @@ class Order(models.Model):
 		# return self.aggregate(models.Sum('price'))['price__sum'] or 0
 		# return self.objects.aggregate(models.Sum('ticket__price'))
 
+	@property
+	def ticket_count(self):
+		"""Calculates the total number of tickets in order"""
+		return self.ticket_set.all().count()
+
 class Ticket(models.Model):
 	TYPES = (
 		("p", "Parent"),
