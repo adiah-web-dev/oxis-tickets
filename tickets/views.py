@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.core.files import File
+from django.db.models import Count, DateField, DateTimeField
+from django.db.models.functions import Trunc
 from django.shortcuts import redirect, render
 from django.views import generic
 
@@ -21,6 +23,31 @@ def dashboard(request):
 
 
 	ticketCount = tickets.count()
+
+	tickets_per_day = (
+		Ticket.objects.annotate(
+			day = Trunc("order__date", "day", output_field=DateField())
+		)
+		.values("day")
+		.annotate(tickets=Count("id"))
+	)
+
+	for ticket in tickets_per_day:
+		print(ticket["day"], ticket["tickets"])
+
+	# I want each day to be the total of all previous days
+	tickets_accum = []
+	ticketTotal = 0
+	for ticket in tickets_per_day:
+		ticketTotal += ticket['tickets']
+		tickets_accum.append({
+			'day': ticket['day'],
+			'total': ticketTotal,
+		})
+
+	for ticket in tickets_accum:
+		print(ticket['day'], ticket['total'])
+
 
 	context = {
 		'orders': orders,
