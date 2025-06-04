@@ -8,7 +8,7 @@
 {% block content %}
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-4 offset-md-4">
 			<!-- Widget: user widget style 1 -->
 			<div class="card card-widget widget-user">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
@@ -54,11 +54,12 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-4 offset-md-4">
 			{% if ticket.checked_in %}
 				<button class="btn btn-default btn-lg btn-block disabled">Already Checked In</button>
 			{% else %}
-				<button class="btn btn-success btn-lg btn-block ">Check In</button>
+				{% comment %} <button class="btn btn-success btn-lg btn-block ">Check In</button> {% endcomment %}
+				<a href="{% url 'check-in' ticket.id %}" class="btn btn-success btn-lg btn-block">Check In</a>
 			{% endif %}
 		</div>
 	</div>
