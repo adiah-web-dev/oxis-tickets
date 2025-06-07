@@ -18,6 +18,13 @@ def check_in(request, ticket_id):
 	# 	print(ticket_id)
 	# 	return redirect('scanned_ticket', pk=ticket_id)
 	print(ticket_id)
+	if request.method == 'POST':
+		print(ticket_id)
+		# update the status
+		ticket = Ticket.objects.get(id=ticket_id)
+		ticket.checked_in = True
+		ticket.save()
+
 	return redirect('scanned-ticket', pk=ticket_id)
 
 class TicketDetailView(generic.DetailView):
