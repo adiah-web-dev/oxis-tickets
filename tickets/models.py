@@ -55,9 +55,10 @@ class Ticket(models.Model):
 	type = models.CharField(max_length=3, choices=TYPES, default="g")
 	order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
 	image = models.ImageField(upload_to='tickets/', blank=True, null=True)
+	checked_in = models.BooleanField(default=False)
 
 	def __str__(self):
-		return f"{self.name} - {self.type}"
+		return f"{self.name}|{self.type} - {'Checked In' if self.checked_in else 'Not Checked In'}"
 
 	@property
 	def price(self):

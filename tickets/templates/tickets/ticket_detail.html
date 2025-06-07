@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Ticket - {{ ticket.id }}{% endblock %}
+
+{% block pageHeader %}Ticket Details{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-4 offset-md-4">
+			<!-- Widget: user widget style 1 -->
+			<div class="card card-widget widget-user">
+
+				<!-- Add the bg color to the header using any of the bg-* classes -->
+				<div class="widget-user-header text-white bg-indigo"
+						style="background: url('{% static 'img/grad-ticket.png' %}') center center; background-size: contain; background-repeat: no-repeat;">
+
+						<div class="ribbon-wrapper ribbon-lg">
+							<div class="ribbon bg-danger">
+								Checked In
+							</div>
+						</div>
+				</div>
+				{% comment %} <div class="widget-user-image">
+					<img class="img-circle" src="../dist/img/user3-128x128.jpg" alt="User Avatar">
+				</div> {% endcomment %}
+				<div class="card-body container">
+					<div class="row">
+						<div class="col border-right">
+							<div class="description-block">
+								<h5 class="description-header">Name:</h5>
+								<span class="description-text">{{ ticket.name }}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+						<div class="col border-right">
+							<div class="description-block">
+								<h5 class="description-header">Ticket Type:</h5>
+								<span class="description-text">{{ ticket.get_type_display }}</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+						<div class="col">
+							<div class="description-block">
+								<h5 class="description-header">Price:</h5>
+								<span class="description-text">${{ ticket.price }}.00</span>
+							</div>
+							<!-- /.description-block -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+			</div>
+			<!-- /.widget-user -->
+		</div>
+		<!-- /.col -->
+	</div>
+
+	<div class="row">
+		<div class="col-md-4 offset-md-4">
+			{% if ticket.checked_in %}
+				<button class="btn btn-default btn-lg btn-block disabled">Already Checked In</button>
+			{% else %}
+				<form action="{% url 'check-in' ticket.id %}" method="post">
+					{% csrf_token %}
+					<button type="submit" class="btn btn-success btn-lg btn-block">Check In</button>
+				</form>
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="row mt-3">
+			<div class="col-md-4 offset-md-4">
+						<a href="{% url 'scanner' %}" class="btn btn-primary btn-lg btn-block">Back to Scanner</a>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
