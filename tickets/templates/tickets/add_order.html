@@ -19,9 +19,17 @@
 					<h4>Order details</h4>
 					<form id="order-form" method="post">
 						{% csrf_token %}
-						<div class="form-group">
+						{% comment %} <div class="form-group">
 							<label for="full_name">Full Name</label>
 							<input type="text" class="form-control form-control-border" name="full_name" id="full_name" placeholder="Enter full name">
+						</div> {% endcomment %}
+						<div class="form-group">
+							<label for="first_name">First Name</label>
+							<input class="form-control form-control-border" type="text" name="first_name" id="first_name" placeholder="Enter first name">
+						</div>
+						<div class="form-group">
+							<label for="last_name">Last Name</label>
+							<input class="form-control form-control-border" type="text" name="last_name" id="last_name" placeholder="Enter last name">
 						</div>
 						<div class="form-group">
 							<label for="phone">Phone Number</label>

@@ -10,7 +10,9 @@ from base.models import Event, EventTicket
 class Order(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4)
 	date = models.DateField(default=date.today)
-	name = models.CharField(max_length=200)
+	name = models.CharField(max_length=200, null=True, blank=True)
+	first_name = models.CharField(max_length=200, null=True, blank=True)
+	last_name = models.CharField(max_length=200, null=True, blank=True)
 	email_address = models.CharField(max_length=200)
 	phone = models.CharField(max_length=20)
 	paid = models.BooleanField(default=False)

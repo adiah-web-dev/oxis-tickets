@@ -19,7 +19,7 @@ class EventTicket(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4)
 	event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
 	image = models.ImageField(upload_to='eventTickets/', blank=True, null=True)
-	type = models.CharField(max_length=100, default="default")
+	type = models.CharField(max_length=100, default="General")
 	price = models.IntegerField()
 
 	def __str__(self):

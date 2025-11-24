@@ -87,14 +87,17 @@ def event_order(request, event_id):
 
 	if request.method == "POST":
 		# Get the details of the order
-		name = request.POST["full_name"]
+		# name = request.POST["full_name"]
+		first_name = request.POST['first_name']
+		last_name = request.POST['last_name']
 		email = request.POST["email"]
 		phone = request.POST["phone"]
 		ticket_count = int(request.POST["ticketCount"])
 
 		# Attempt to create a new Order and then add the tickets to it
 		order = Order(
-			name=name,
+			first_name=first_name,
+			last_name=last_name,
 			email_address=email,
 			phone=phone,
 			event=event
@@ -120,7 +123,7 @@ def event_order(request, event_id):
 
 			# Get the image location from the db.
 			image = event_ticket.image
-			create_image(ticket_name, new_ticket.id, image)
+			create_image(last_name, new_ticket.id, image)
 			new_ticket.image.save(f'{new_ticket.name}---{new_ticket.id}.png', File(open(ROOT / 'media/temp/ticket_text.png', 'rb')))
 
 			order.ticket_set.add(new_ticket)
