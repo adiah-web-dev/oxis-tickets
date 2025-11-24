@@ -33,7 +33,7 @@ def create_image(name, id, img):
 	image = Image.open(ROOT / 'media/temp/ticket.png')
 	draw = ImageDraw.Draw(image)
 
-	font = ImageFont.truetype(ROOT / 'static/fonts/RobotoSlab.ttf', 44)
+	font = ImageFont.truetype(ROOT / 'static/fonts/RobotoSlab.ttf', 60)
 	text_color = 'black'
 	name_length = draw.textlength(name, font)
 
