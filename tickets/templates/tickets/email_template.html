@@ -3,11 +3,11 @@
   <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;">
     <div style="max-width: 600px; margin: auto; background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
       <h2 style="color: #4a225e; text-align: center;">🎓 Oxbridge International School</h2>
-      <h3 style="text-align: center; margin-top: 0;">Graduation 2025 – <em>Enchanted Garden</em></h3>
+      <h3 style="text-align: center; margin-top: 0;">{{ event_name }} – <em>{{ event_theme }}</em></h3>
 
       <p>Dear <strong>{{customer_name}}</strong>,</p>
 
-      <p>Thank you for your purchase! Here are your graduation ticket details:</p>
+      <p>Thank you for your purchase! Here are your ticket details:</p>
 
       <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
         <thead>
@@ -34,13 +34,13 @@
         </tfoot>
       </table>
 
-      <p>Attached below are your digital tickets for each entry. Please present these at the entrance on graduation day.</p>
+      <p>Attached below are your digital tickets for each entry. Please present these at the entrance on the day of the event.</p>
 
-      <p style="margin-top: 20px;">We look forward to celebrating this magical moment with you at the <strong>Enchanted Garden Graduation Ceremony</strong>.</p>
+      <p style="margin-top: 20px;">We look forward to celebrating this magical moment with you at the <strong>{{ order.event.theme }} {{ order.event.name }}</strong>.</p>
 
       <p>With best wishes,</p>
 
-      <p><strong>Oxbridge International School<br/>Graduation Committee</strong></p>
+      <p><strong>Oxbridge International School<br/>Event Committee</strong></p>
     </div>
   </body>
 </html>

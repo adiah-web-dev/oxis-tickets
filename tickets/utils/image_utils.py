@@ -5,28 +5,13 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = settings.BASE_DIR
 
 
-def create_image(name, type, id):
-	template = ''
+def create_image(name, id, img):
 
-	match type:
-		case "p":
-			template = "Parent"
-		case "g":
-			template = "Graduate"
-		case "ge":
-			template = "Early"
-		case "ng":
-			template = "Student"
-		case "d":
-			template = "Plus"
-		case "pk":
-			template = "PlusKids"
-
-	img = Image.open(ROOT / f'static/img/grad_tickets/{template}.png')
+	img = Image.open(ROOT / f'media/uploads/{img}')
 	img_bg = img.copy()
 
 	qr = qrcode.QRCode(
-		box_size=4,
+		box_size=12,
 		version=1
 	)
 
@@ -38,8 +23,8 @@ def create_image(name, type, id):
 
 	qr_inset = Image.open(ROOT / 'media/temp/qrcode_inset.png')
 
-	x = img_bg.width - (qr_inset.width + 44)
-	y = img_bg.height - (qr_inset.height + 230)
+	x = img_bg.width - (qr_inset.width + 290)
+	y = img_bg.height - (qr_inset.height + 54)
 
 	img_bg.paste(qr_inset, (x, y))
 	img_bg.save(ROOT / 'media/temp/ticket.png')
@@ -49,11 +34,11 @@ def create_image(name, type, id):
 	draw = ImageDraw.Draw(image)
 
 	font = ImageFont.truetype(ROOT / 'static/fonts/RobotoSlab.ttf', 44)
-	text_color = 'white'
+	text_color = 'black'
 	name_length = draw.textlength(name, font)
 
 	x = (image.width - name_length) / 2
-	y = image.height / 2 + 160
+	y = image.height / 2 + 300
 	name_position = (x, y)
 
 	draw.text(name_position, name, fill=text_color, font=font)

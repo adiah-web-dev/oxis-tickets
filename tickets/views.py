@@ -108,20 +108,25 @@ def event_order(request, event_id):
 		for i in range(ticket_count):
 			ticket_name = request.POST[f'ticketName{i}']
 			typeId = request.POST[f'ticketTypeId{i}']
+			event_ticket = EventTicket.objects.get(id=typeId)
 
 			new_ticket = Ticket(
 				name=ticket_name,
-				event_ticket=EventTicket.objects.get(id=typeId)
+				event_ticket=event_ticket
 			)
 
 			new_ticket.save()
 			total += new_ticket.event_ticket.price
 
-			# TODO create the image and save to database.
+			# Get the image location from the db.
+			image = event_ticket.image
+			create_image(ticket_name, new_ticket.id, image)
+			new_ticket.image.save(f'{new_ticket.name}---{new_ticket.id}.png', File(open(ROOT / 'media/temp/ticket_text.png', 'rb')))
 
 			order.ticket_set.add(new_ticket)
 
 		# TODO send the email
+		send_email(order)
 
 		return redirect('orders')
 

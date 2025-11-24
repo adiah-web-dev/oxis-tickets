@@ -12,11 +12,13 @@ logger = logging.getLogger(__name__)
 
 
 def send_email(order):
-	subject = "🎓 Your Graduation Tickets – Oxbridge International School | Enchanted Garden"
+	subject = f"🎓 Your Tickets – Oxbridge International School | {order.event.theme}"
 	html_content = render_to_string('tickets/email_template.html', {
 		"customer_name": order.name,
 		"tickets": order.ticket_set.all(),
 		"total": order.total,
+		"event_name": order.event.name,
+		"event_theme": order.event.theme,
 	})
 	text_content = strip_tags(html_content)
 
