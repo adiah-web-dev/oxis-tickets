@@ -66,10 +66,10 @@
 							<tbody>
 								{% for ticket in order.ticket_set.all %}
 									<tr>
-										<td>{{ ticket.get_type_display}}</td>
+										<td>{{ ticket.event_ticket.type}}</td>
 										<td>{{ticket.name }}</td>
 										<td>{{ ticket.id }}</td>
-										<td>${{ ticket.price }}.00</td>
+										<td>${{ ticket.event_ticket.price }}.00</td>
 									</tr>
 								{% endfor %}
 							</tbody>
