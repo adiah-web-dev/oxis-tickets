@@ -27,54 +27,23 @@ const addTicket = () => {
   const formData = new FormData(ticketForm);
 
   const name = formData.get("ticket-name");
-  const type = formData.get("ticket-type");
+  // const type = formData.get("ticket-type");
+
+  const ticketTypes = document.getElementById("ticket-type");
+  const selectedType = ticketTypes.options[ticketTypes.selectedIndex];
+
+  const type = selectedType.dataset.type;
+  const price = +selectedType.dataset.price;
+  const typeId = selectedType.dataset.typeId;
+
+  console.log(typeId);
 
   // check for ticket info before adding it
   if (name.length > 0 && type.length > 0) {
-    let text = "";
-    let price = 0;
-
-    switch (type) {
-      case "p":
-        text = "Parent";
-        price = 125;
-        break;
-
-      case "g":
-        text = "Graduand";
-        price = 550;
-        break;
-
-      case "ge":
-        text = "Graduand - Early Years";
-        price = 250;
-        break;
-
-      case "ng":
-        text = "Non Graduating Learner";
-        price = 100;
-        break;
-
-      case "d":
-        text = "Graduand's Plus One";
-        price = 250;
-        break;
-
-      case "pk":
-        text = "Plus One (Child)";
-        price = 100;
-        break;
-
-      default:
-        text = "Graduand";
-        price = 550;
-        break;
-    }
-
     let newRow = invoiceTable.insertRow(-1);
 
     let typeCell = newRow.insertCell(0);
-    let newType = document.createTextNode(text);
+    let newType = document.createTextNode(type);
     typeCell.appendChild(newType);
 
     let nameCell = newRow.insertCell(1);
@@ -107,8 +76,14 @@ const addTicket = () => {
     ticketType.name = `ticketType${ticketCount}`;
     ticketType.value = type;
 
+    const ticketTypeId = document.createElement("input");
+    ticketTypeId.type = "hidden";
+    ticketTypeId.name = `ticketTypeId${ticketCount}`;
+    ticketTypeId.value = typeId;
+
     orderForm.appendChild(ticketName);
     orderForm.appendChild(ticketType);
+    orderForm.appendChild(ticketTypeId);
 
     ticketCount += 1;
     ticketCountInput.value = ticketCount;

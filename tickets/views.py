@@ -5,7 +5,7 @@ from django.db.models.functions import Trunc
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
 
-from base.models import Event
+from base.models import Event, EventTicket
 
 from .models import Email, Order, Ticket
 from .utils.email_utils import send_email
@@ -80,6 +80,58 @@ def event_dash(request, event_id):
 	}
 
 	return render(request, 'tickets/dashboard.html', context)
+
+def event_order(request, event_id):
+	event = get_object_or_404(Event, pk=event_id)
+	ticket_types = EventTicket.objects.filter(event=event)
+
+	if request.method == "POST":
+		# Get the details of the order
+		name = request.POST["full_name"]
+		email = request.POST["email"]
+		phone = request.POST["phone"]
+		ticket_count = int(request.POST["ticketCount"])
+
+		# Attempt to create a new Order and then add the tickets to it
+		order = Order(
+			name=name,
+			email_address=email,
+			phone=phone,
+			event=event
+		)
+
+		order.save()
+
+		total = 0
+
+		# Loop over the tickets
+		for i in range(ticket_count):
+			ticket_name = request.POST[f'ticketName{i}']
+			typeId = request.POST[f'ticketTypeId{i}']
+
+			new_ticket = Ticket(
+				name=ticket_name,
+				event_ticket=EventTicket.objects.get(id=typeId)
+			)
+
+			new_ticket.save()
+			total += new_ticket.event_ticket.price
+
+			# TODO create the image and save to database.
+
+			order.ticket_set.add(new_ticket)
+
+		# TODO send the email
+
+		return redirect('orders')
+
+
+	context = {
+		"event": event,
+		"ticketTypes": ticket_types,
+	}
+
+	return render(request, 'tickets/add_order.html', context)
 
 
 # Orders
