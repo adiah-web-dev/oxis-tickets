@@ -4,7 +4,10 @@ from . import views
 
 urlpatterns = [
 	path('dashboard/', views.dashboard, name="dashboard"),
-	path('', views.dashboard, name="home"),
+	# path('', views.dashboard, name="home"),
+
+	# Event specific dashboard
+	path('event/<uuid:event_id>', views.event_dash, name="event"),
 
 	path('orders/', views.OrderListView.as_view(), name='orders'),
 	path('order/create/', views.order_page, name="order"),

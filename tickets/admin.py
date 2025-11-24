@@ -10,7 +10,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-	list_display = ('name', 'id', 'type', 'price', 'image')
+	list_display = ('name', 'id',  'image', 'event_ticket')
 
 	# Add a link back to the order
 

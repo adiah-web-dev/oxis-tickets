@@ -1,38 +1,220 @@
 {% extends 'main.html' %}
 {% load static %}
 
-{% block title%}Oxis Tickets{% endblock %}
+{% block title %}Ticket Generator{% endblock %}
 
-{% block pageHeader %}Tickets{% endblock %}
+{% block plugins %}
+{% endblock %}
+
+{% block pageHeader %}Ticket Generator{% endblock %}
 
 {% block breadcrumbs %}
-	<li class="breadcrumb-item active">Home</li>
+	{% comment %} <li class="breadcrumb-item"><a href="#">Events</a></li> {% endcomment %}
+	<li class="breadcrumb-item active">Events</li>
+	{% comment %} <li class="breadcrumb-item active">Graduation</li> {% endcomment %}
 {% endblock %}
 
 {% block content %}
-<!-- Default box -->
-	<div class="card">
-		<div class="card-header">
-			<h3 class="card-title">Title</h3>
+	<div class="container-fluid">
+		<!-- Info boxes -->
+		<div class="row">
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box">
+					<span class="info-box-icon bg-info elevation-1"><i class="fas fa-chart-line"></i></span>
 
-			<div class="card-tools">
-				<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-					<i class="fas fa-minus"></i>
-				</button>
-				<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-					<i class="fas fa-times"></i>
-				</button>
+					<div class="info-box-content">
+						<span class="info-box-text">Total Sold</span>
+						<span class="info-box-number">
+							{{ ticketCount }}
+						</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
 			</div>
-		</div>
-		<div class="card-body">
-			Start creating your amazing application!
-		</div>
-		<!-- /.card-body -->
-		<div class="card-footer">
-			Footer
-		</div>
-		<!-- /.card-footer-->
-	</div>
-	<!-- /.card -->
+			<!-- /.col -->
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3">
+					<span class="info-box-icon bg-danger elevation-1"><i class="fas fa-envelope"></i></span>
 
+					<div class="info-box-content">
+						<span class="info-box-text">Emails Sent</span>
+						<span class="info-box-number">{{ emailCount }}</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+
+			<!-- fix for small devices only -->
+			<div class="clearfix hidden-md-up"></div>
+
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3">
+					<span class="info-box-icon bg-success elevation-1"><i class="fas fa-mobile"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Checked In</span>
+						{% comment %} Add an emails sent {% endcomment %}
+						<span class="info-box-number">{{ checkedInCount }}</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3">
+					<span class="info-box-icon bg-warning elevation-1"><i class="fas fa-dollar-sign"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Income</span>
+						<span class="info-box-number">{{ income }}</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+
+		<!-- Main row -->
+		<div class="row">
+			<!-- Left col -->
+			<div class="col-md-6">
+				<!-- TABLE: LATEST ORDERS -->
+				<div class="card">
+					<div class="card-header border-transparent">
+						<h3 class="card-title">Upcoming Events</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body p-0">
+						<div class="table-responsive">
+							<table class="table m-0">
+								<thead>
+								<tr>
+									<th>Date</th>
+									<th>Event</th>
+									<th>Theme</th>
+								</tr>
+								</thead>
+								<tbody>
+									{% comment %} {% for order in orders %}
+									<tr>
+										<td>{{ order.id|truncatechars:10 }}</td>
+										<td>{{ order.date }}</td>
+										<td>{{ order.name }}</td>
+										<td>{{ order.ticket_set.all|length }}</td>
+									</tr>
+									{% endfor %} {% endcomment %}
+									{% for event in events %}
+									<tr>
+										<td>{{ event.date }}</td>
+										<td><a href={% url 'event' event.id%}>{{event.name}}</a></td>
+										<td>{{ event.theme }}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<!-- /.table-responsive -->
+					</div>
+					<!-- /.card-body -->
+					<div class="card-footer clearfix">
+						{% comment %} TODO {% endcomment %}
+						{% comment %} <a href="{% url 'order' %}" class="btn btn-sm btn-info float-left">Create New Event</a>
+						<a href="{% url 'orders' %}" class="btn btn-sm btn-secondary float-right">View All Events</a> {% endcomment %}
+					</div>
+					<!-- /.card-footer -->
+				</div>
+				<!-- /.card -->
+			</div>
+			<!-- /.col -->
+
+			<div class="col-md-6">
+				<!-- LINE CHART -->
+				<div class="card card-info">
+					<div class="card-header">
+						<h3 class="card-title">Ticket Sales</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool" data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					{% comment %} <div class="card-body">
+						<div class="chart">
+							<canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+						</div>
+					</div> {% endcomment %}
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Quick Actions</h3>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<a class="btn btn-default btn-flat col-md-4">
+								<i class="fab fa-facebook"></i> Sell Ticket
+							</a>
+							<a class="btn btn-default btn-flat col-md-4" href="{% url 'scanner' %}">
+								<i class="fas fa-qrcode"></i> Scan Ticket
+							</a>
+							<a class="btn btn-default btn-flat col-md-4">
+								<i class="far fa-envelope"></i> Send Email
+							</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div><!--/. container-fluid -->
+{% endblock %}
+
+{% block scripts %}
+	<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+
+	<script>
+		const ctx = document.getElementById('lineChart')
+
+		new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+				datasets: [{
+					label: '# of Votes',
+					data: [12, 19, 3, 5, 2, 3],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		})
+	</script>
 {% endblock %}

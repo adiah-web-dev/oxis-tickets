@@ -1,16 +1,16 @@
 {% extends 'main.html' %}
 {% load static %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard | {{event.name}}{% endblock %}
 
 {% block plugins %}
 {% endblock %}
 
-{% block pageHeader %}Graduation{% endblock %}
+{% block pageHeader %}{{event.name}}{% endblock %}
 
 {% block breadcrumbs %}
-	<li class="breadcrumb-item"><a href="#">Events</a></li>
-	<li class="breadcrumb-item active">Graduation</li>
+	<li class="breadcrumb-item"><a href={% url 'home' %}>Events</a></li>
+	<li class="breadcrumb-item active">{{event.name}}</li>
 {% endblock %}
 
 {% block content %}

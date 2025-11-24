@@ -2,8 +2,10 @@ from django.conf import settings
 from django.core.files import File
 from django.db.models import Count, DateField, DateTimeField
 from django.db.models.functions import Trunc
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
+
+from base.models import Event
 
 from .models import Email, Order, Ticket
 from .utils.email_utils import send_email
@@ -18,8 +20,8 @@ def dashboard(request):
 	checked_in = Ticket.objects.filter(checked_in=True).count()
 
 	total = 0
-	for ticket in tickets:
-		total += ticket.price
+	# for ticket in tickets:
+	# 	total += ticket.price
 
 
 	ticketCount = tickets.count()
@@ -32,8 +34,8 @@ def dashboard(request):
 		.annotate(tickets=Count("id"))
 	)
 
-	for ticket in tickets_per_day:
-		print(ticket["day"], ticket["tickets"])
+	# for ticket in tickets_per_day:
+	# 	print(ticket["day"], ticket["tickets"])
 
 	# I want each day to be the total of all previous days
 	tickets_accum = []
@@ -45,8 +47,8 @@ def dashboard(request):
 			'total': ticketTotal,
 		})
 
-	for ticket in tickets_accum:
-		print(ticket['day'], ticket['total'])
+	# for ticket in tickets_accum:
+	# 	print(ticket['day'], ticket['total'])
 
 
 	context = {
@@ -56,9 +58,29 @@ def dashboard(request):
 		'emailCount': email_count,
 		'checkedInCount': checked_in,
 	}
-	print(settings.EMAIL_HOST_USER)
+	# print(settings.EMAIL_HOST_USER)
 
 	return render(request, 'tickets/dashboard.html', context)
+
+# Event dash
+def event_dash(request, event_id):
+	event = get_object_or_404(Event, pk=event_id)
+
+	orders = Order.objects.filter(event=event)
+
+	tickets = Ticket.objects.filter(event_ticket__event=event)
+
+	ticket_count = tickets.count()
+
+
+	context = {
+		"event": event,
+		"orders": orders,
+		"ticketCount": ticket_count,
+	}
+
+	return render(request, 'tickets/dashboard.html', context)
+
 
 # Orders
 
@@ -79,12 +101,14 @@ def order_page(request):
 		email = request.POST["email"]
 		phone = request.POST["phone"]
 		ticket_count = int(request.POST["ticketCount"])
+		event = request.POST["event"]
 
 		# Attempt to create a new Order and then add the tickets to it
 		order = Order(
 			name=name,
 			email_address=email,
 			phone=phone,
+			event=event
 		)
 		order.save()
 
