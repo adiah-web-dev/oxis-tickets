@@ -32,7 +32,7 @@
 									{% for order in order_list %}
 										<tr>
 											<td>
-												<a href="{{ order.get_absolute_url }}">{{ order.name }}</a>
+												<a href="{{ order.get_absolute_url }}">{{ order.first_name }} {{ order.last_name }}</a>
 											</td>
 											<td>{{ order.id }}</td>
 											<td>{{ order.date }}</td>
