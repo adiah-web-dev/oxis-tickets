@@ -123,7 +123,7 @@ def event_order(request, event_id):
 
 			# Get the image location from the db.
 			image = event_ticket.image
-			create_image(last_name, new_ticket.id, image)
+			create_image(ticket_name, new_ticket.id, image)
 			new_ticket.image.save(f'{new_ticket.name}---{new_ticket.id}.png', File(open(ROOT / 'media/temp/ticket_text.png', 'rb')))
 
 			order.ticket_set.add(new_ticket)
